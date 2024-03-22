@@ -2,16 +2,26 @@ import React, { useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import InputField from "../../components/TextInput/InputField";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import axios from "axios";
 
 const Login=()=>{
     const [email,SetEmail]=useState('');
     const [password,setPassword]=useState('');
     const [usertype,setUserType]=useState('');
 
-    const submit=()=>{
-        console.log("User", email);
-        console.log("Pass", password);
-        console.log("Radio", usertype);
+    var form_data={
+        email,
+        password,
+    }
+
+    const submit=async(e:any)=>{
+        const res=await axios.post('http://localhost:3000/login/data',form_data)
+        .then(res=>{
+            console.log(res.data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
     }
 
     return(
